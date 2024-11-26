@@ -1,0 +1,49 @@
+ALGORITHM SortStringsByFrequency
+VAR
+    arr: ARRAY OF STRING
+    freqMap: DICTIONARY OF STRING, INTEGER
+    sortedList: ARRAY OF STRING
+    uniqueStrings: ARRAY OF STRING
+    n, i, j: INTEGER
+
+BEGIN
+    
+    WRITE "Enter the number of strings:"
+    READ n
+    NEW arr[n]
+
+    WRITE "Enter the strings:"
+    FOR i FROM 0 TO n - 1 DO
+        READ arr[i]
+    END FOR
+
+    
+    NEW freqMap
+    FOR i FROM 0 TO n - 1 DO
+        IF freqMap[arr[i]] IS NULL THEN
+            freqMap[arr[i]] <- 1
+        ELSE
+            freqMap[arr[i]] <- freqMap[arr[i]] + 1
+        END IF
+    END FOR
+
+    
+    NEW uniqueStrings <- KEYS(freqMap)
+
+    
+    SORT uniqueStrings BY (freqMap[x], x) ASCENDING
+
+    
+    NEW sortedList
+    FOR i FROM 0 TO LENGTH(uniqueStrings) - 1 DO
+        FOR j FROM 1 TO freqMap[uniqueStrings[i]] DO
+            ADD uniqueStrings[i] TO sortedList
+        END FOR
+    END FOR
+
+    
+    WRITE "Sorted Array by Frequency:"
+    FOR i FROM 0 TO LENGTH(sortedList) - 1 DO
+        WRITE sortedList[i]
+    END FOR
+END

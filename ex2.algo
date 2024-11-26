@@ -1,0 +1,56 @@
+ALGORITHM CountingSort
+VAR
+    arr: ARRAY OF INTEGER
+    maxVal, minVal, range, n, i, j: INTEGER
+    count: ARRAY OF INTEGER
+    sortedArr: ARRAY OF INTEGER
+
+BEGIN
+    
+    WRITE "Enter the size of the array:"
+    READ n
+    NEW arr[n]
+    
+    WRITE "Enter the elements of the array:"
+    FOR i FROM 0 TO n - 1 DO
+        READ arr[i]
+    END FOR
+
+    
+    maxVal <- arr[0]
+    minVal <- arr[0]
+    FOR i FROM 1 TO n - 1 DO
+        IF arr[i] > maxVal THEN
+            maxVal <- arr[i]
+        END IF
+        IF arr[i] < minVal THEN
+            minVal <- arr[i]
+        END IF
+    END FOR
+
+    
+    range <- maxVal - minVal + 1  
+    NEW count[range]
+    FOR i FROM 0 TO range - 1 DO
+        count[i] <- 0
+    END FOR
+
+    
+    FOR i FROM 0 TO n - 1 DO
+        count[arr[i] - minVal] <- count[arr[i] - minVal] + 1
+    END FOR
+
+    
+    NEW sortedArr
+    FOR i FROM 0 TO range - 1 DO
+        FOR j FROM 1 TO count[i] DO
+            ADD (i + minVal) TO sortedArr
+        END FOR
+    END FOR
+
+    
+    WRITE "Sorted Array:"
+    FOR i FROM 0 TO LENGTH(sortedArr) - 1 DO
+        WRITE sortedArr[i]
+    END FOR
+END
